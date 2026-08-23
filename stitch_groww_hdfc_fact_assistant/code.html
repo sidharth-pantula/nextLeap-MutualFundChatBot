@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Groww Mutual Fund FAQ Assistant (Facts-Only RAG)</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Outfit:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#ffa15b",
+                        "primary-fixed": "#59fdc5",
+                        "background": "#0f131c",
+                        "inverse-primary": "#006c4f",
+                        "primary-fixed-dim": "#2fe0aa",
+                        "surface-container": "#1c2028",
+                        "error-container": "#93000a",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed-variant": "#713700",
+                        "on-primary": "#003828",
+                        "inverse-surface": "#dfe2ee",
+                        "primary": "#44edb7",
+                        "surface-tint": "#2fe0aa",
+                        "text-muted": "#94A3B8",
+                        "secondary": "#4fdbc8",
+                        "on-secondary-fixed-variant": "#005048",
+                        "secondary-container": "#04b4a2",
+                        "surface-container-high": "#262a33",
+                        "surface-container-highest": "#31353e",
+                        "tertiary-fixed-dim": "#ffb785",
+                        "tertiary-fixed": "#ffdcc6",
+                        "on-primary-fixed-variant": "#00513b",
+                        "on-error-container": "#ffdad6",
+                        "surface": "#0f131c",
+                        "on-tertiary-container": "#733800",
+                        "surface-container-lowest": "#0a0e16",
+                        "warning-amber": "#F59E0B",
+                        "groww-classic": "#00B386",
+                        "on-secondary-fixed": "#00201c",
+                        "border-subtle": "#334155",
+                        "error": "#ffb4ab",
+                        "on-secondary": "#003731",
+                        "secondary-fixed": "#71f8e4",
+                        "surface-variant": "#31353e",
+                        "outline-variant": "#3c4a43",
+                        "primary-container": "#00d09c",
+                        "inverse-on-surface": "#2c3039",
+                        "on-surface-variant": "#bacac1",
+                        "on-secondary-container": "#003f38",
+                        "on-primary-container": "#00533c",
+                        "surface-container-low": "#181c24",
+                        "on-tertiary-fixed": "#301400",
+                        "surface-bright": "#353942",
+                        "on-surface": "#dfe2ee",
+                        "outline": "#85948c",
+                        "on-background": "#dfe2ee",
+                        "tertiary": "#ffc8a3",
+                        "surface-dim": "#0f131c",
+                        "on-primary-fixed": "#002116",
+                        "on-tertiary": "#502500",
+                        "surface-slate": "#1E293B"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "sm": "12px",
+                        "gutter": "24px",
+                        "xs": "8px",
+                        "container-max": "1280px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Outfit"],
+                        "headline-md": ["Outfit"],
+                        "label-mono": ["JetBrains Mono"],
+                        "nav-value": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "headline-xl": ["Outfit"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "label-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "nav-value": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .glass-panel {
+                @apply bg-surface-slate/60 backdrop-blur-md border border-border-subtle shadow-sm;
+            }
+            .glass-panel-hover {
+                @apply hover:bg-surface-slate/80 hover:border-secondary/20 transition-all duration-300;
+            }
+            .fact-highlight {
+                @apply bg-secondary/10 border-l-2 border-secondary px-3 py-2 rounded-r-md;
+            }
+            .glow-emerald {
+                box-shadow: 0 0 20px rgba(68, 237, 183, 0.15);
+            }
+            .custom-scrollbar::-webkit-scrollbar {
+                width: 6px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb {
+                @apply bg-surface-variant rounded-full;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                @apply bg-border-subtle;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-hidden antialiased">
+<!-- Top Navigation Bar -->
+<header class="flex justify-between items-center w-full px-gutter z-50 h-16 bg-surface/60 dark:bg-surface/60 backdrop-blur-md docked full-width top-0 sticky border-b border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-4">
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed tracking-tight">Groww Mutual Fund FAQ Assistant</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-sm text-body-sm hover:text-primary-fixed-dim transition-colors duration-200 Active: opacity-80 scale-95 transition-all" href="#">API Monitor</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="text-label-mono font-label-mono text-on-surface-variant px-3 py-1 bg-surface-container rounded-full border border-border-subtle hidden lg:inline-flex">Facts-Only Compliance</span>
+<button class="text-on-surface-variant hover:text-primary-fixed-dim transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="dark_mode">dark_mode</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary-fixed-dim transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="User Profile" class="w-8 h-8 rounded-full border border-border-subtle object-cover" data-alt="A modern, abstract digital avatar representing a professional user in a sleek, dark-themed interface context. The avatar features subtle, glowing neon green elements against a deep slate background, conveying high-tech financial analysis and verified trust. The lighting is sharp and cinematic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzxCSVbd5jO5xfoB_wnLUEFlkT5Nbm5PF6RVXx-cpp5StpdMuP_6TWkPD9f_NgptIUl7b8lqEoh37e_Z3OZCR4ePhWm-Sub18zpdnYRk3Lkbuo8ThAsHTmsL2fPJ2iJPjtyuXdvwb4dcpIWgTM6xZobLYsp7shGW0PXcj7BVyLZ5vyeO8Y9Z345R90M4XMcR3siwLnZJxME6abytUMiP1auiMPjMzO2GXlJ1eCPH5rKcRMEudGwSVj"/>
+</div>
+</div>
+</header>
+<!-- Main Layout Container -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Left Sidebar: Supported Schemes -->
+<aside class="hidden lg:flex flex-col w-72 h-[calc(100vh-64px)] fixed left-0 top-16 z-40 bg-surface-container-low/60 dark:bg-surface-container-low/60 backdrop-blur-md border-r border-outline-variant/30 transition-transform duration-200 ease-in-out custom-scrollbar overflow-y-auto">
+<div class="p-6 pb-2 sticky top-0 bg-surface-container-low/95 z-10 backdrop-blur-md">
+<h2 class="text-headline-md font-headline-md text-primary mb-1">Scheme Directory</h2>
+<p class="text-body-sm font-body-sm text-text-muted mb-4">Supported Schemes (5)</p>
+<button class="w-full bg-primary-container/10 text-primary border border-primary/30 hover:bg-primary-container/20 py-2 rounded-md font-label-mono text-label-mono transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span> New Analysis
+                </button>
+</div>
+<nav class="flex-1 px-4 py-2 space-y-2">
+<!-- Active Nav Item (Semantic Match: Dashboard/Home equivalent) -->
+<a class="bg-primary-container/20 text-primary border-r-4 border-primary px-4 py-3 flex items-center gap-3 rounded-l-md font-body-md text-body-md hover:bg-surface-container-highest/50" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                    Dashboard
+                </a>
+<a class="text-on-surface-variant hover:bg-surface-container-high/40 px-4 py-3 flex items-center gap-3 transition-all rounded-md font-body-md text-body-md hover:bg-surface-container-highest/50" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                    Mutual Funds
+                </a>
+<a class="text-on-surface-variant hover:bg-surface-container-high/40 px-4 py-3 flex items-center gap-3 transition-all rounded-md font-body-md text-body-md hover:bg-surface-container-highest/50" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+                    RAG Analytics
+                </a>
+<a class="text-on-surface-variant hover:bg-surface-container-high/40 px-4 py-3 flex items-center gap-3 transition-all rounded-md font-body-md text-body-md hover:bg-surface-container-highest/50" href="#">
+<span class="material-symbols-outlined" data-icon="compare_arrows">compare_arrows</span>
+                    Factsheets
+                </a>
+<a class="text-on-surface-variant hover:bg-surface-container-high/40 px-4 py-3 flex items-center gap-3 transition-all rounded-md font-body-md text-body-md hover:bg-surface-container-highest/50" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                    History
+                </a>
+</nav>
+<div class="px-4 py-4 space-y-3 border-t border-border-subtle mt-4">
+<p class="font-label-mono text-label-mono text-text-muted uppercase tracking-wider px-2 mb-2">Tracked Funds</p>
+<!-- Scheme Cards -->
+<div class="glass-panel p-3 rounded-lg glass-panel-hover group cursor-pointer relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent to-surface-slate/20 group-hover:to-secondary/5 transition-colors"></div>
+<div class="flex justify-between items-start mb-2 relative z-10">
+<h3 class="font-body-sm text-body-sm font-medium leading-tight text-on-surface truncate w-3/4">HDFC Mid-Cap Opportunities Fund</h3>
+</div>
+<div class="flex justify-between items-center relative z-10">
+<span class="text-xs text-text-muted">Direct - Growth</span>
+<span class="font-nav-value text-nav-value text-primary">₹236.59</span>
+</div>
+</div>
+<div class="glass-panel p-3 rounded-lg glass-panel-hover group cursor-pointer relative overflow-hidden">
+<div class="flex justify-between items-start mb-2 relative z-10">
+<h3 class="font-body-sm text-body-sm font-medium leading-tight text-on-surface truncate w-3/4">HDFC Small Cap Fund</h3>
+</div>
+<div class="flex justify-between items-center relative z-10">
+<span class="text-xs text-text-muted">Direct - Growth</span>
+<span class="font-nav-value text-nav-value text-primary">₹161.46</span>
+</div>
+</div>
+<div class="glass-panel p-3 rounded-lg glass-panel-hover group cursor-pointer relative overflow-hidden">
+<div class="flex justify-between items-start mb-2 relative z-10">
+<h3 class="font-body-sm text-body-sm font-medium leading-tight text-on-surface truncate w-3/4">HDFC Nifty 50 Index Fund</h3>
+</div>
+<div class="flex justify-between items-center relative z-10">
+<span class="text-xs text-text-muted">Direct - Growth</span>
+<span class="font-nav-value text-nav-value text-primary">₹237.37</span>
+</div>
+</div>
+<div class="glass-panel p-3 rounded-lg glass-panel-hover group cursor-pointer relative overflow-hidden">
+<div class="flex justify-between items-start mb-2 relative z-10">
+<h3 class="font-body-sm text-body-sm font-medium leading-tight text-on-surface truncate w-3/4">HDFC Nifty Next 50 Index Fund</h3>
+</div>
+<div class="flex justify-between items-center relative z-10">
+<span class="text-xs text-text-muted">Direct - Growth</span>
+<span class="font-nav-value text-nav-value text-primary">₹17.52</span>
+</div>
+</div>
+<div class="glass-panel p-3 rounded-lg glass-panel-hover group cursor-pointer relative overflow-hidden">
+<div class="flex justify-between items-start mb-2 relative z-10">
+<h3 class="font-body-sm text-body-sm font-medium leading-tight text-on-surface truncate w-3/4">HDFC Multi Cap Fund</h3>
+</div>
+<div class="flex justify-between items-center relative z-10">
+<span class="text-xs text-text-muted">Direct - Growth</span>
+<span class="font-nav-value text-nav-value text-primary">₹20.12</span>
+</div>
+</div>
+</div>
+<div class="mt-auto p-4 border-t border-border-subtle">
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface py-2 font-body-sm text-body-sm transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="help">help</span> Help
+                </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface py-2 font-body-sm text-body-sm transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="settings">settings</span> Settings
+                </a>
+</div>
+</aside>
+<!-- Main Center: Chat Interface -->
+<main class="flex-1 lg:ml-72 xl:mr-80 flex flex-col h-[calc(100vh-64px)] relative bg-background">
+<!-- Chat History Area -->
+<div class="flex-1 overflow-y-auto p-6 space-y-8 custom-scrollbar">
+<!-- Welcome Empty State (Visible initially, would fade out when chat starts) -->
+<div class="flex flex-col items-center justify-center min-h-[409px] text-center max-w-2xl mx-auto space-y-6 mt-10">
+<div class="w-16 h-16 rounded-2xl bg-surface-slate flex items-center justify-center border border-border-subtle shadow-[0_0_30px_rgba(68,237,183,0.1)] mb-4">
+<span class="material-symbols-outlined text-3xl text-primary" data-icon="troubleshoot" style="font-variation-settings: 'FILL' 1;">troubleshoot</span>
+</div>
+<h2 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">What would you like to know about HDFC mutual funds?</h2>
+<p class="font-body-lg text-body-lg text-text-muted max-w-lg">Get verified, facts-only responses backed by institutional data and current scheme documents.</p>
+<div class="flex flex-wrap justify-center gap-3 mt-8">
+<button class="px-4 py-2 rounded-full border border-border-subtle bg-surface-slate/40 hover:bg-surface-slate/80 hover:border-secondary/40 text-on-surface font-body-sm text-body-sm transition-all duration-300">
+                            "What is the expense ratio of HDFC Small Cap Fund?"
+                        </button>
+<button class="px-4 py-2 rounded-full border border-border-subtle bg-surface-slate/40 hover:bg-surface-slate/80 hover:border-secondary/40 text-on-surface font-body-sm text-body-sm transition-all duration-300">
+                            "Taxation rules for equity funds?"
+                        </button>
+<button class="px-4 py-2 rounded-full border border-border-subtle bg-surface-slate/40 hover:bg-surface-slate/80 hover:border-secondary/40 text-on-surface font-body-sm text-body-sm transition-all duration-300">
+                            "Compare Exit loads for Nifty 50 vs Next 50"
+                        </button>
+</div>
+</div>
+<!-- Example User Message -->
+<div class="flex justify-end w-full max-w-3xl mx-auto">
+<div class="bg-surface-slate text-on-surface px-5 py-4 rounded-2xl rounded-tr-sm border border-border-subtle max-w-[85%]">
+<p class="font-body-md text-body-md">What are the exit load details for the HDFC Mid-Cap Opportunities Fund?</p>
+</div>
+</div>
+<!-- Example RAG System Message (Verified Fact) -->
+<div class="flex justify-start w-full max-w-3xl mx-auto">
+<div class="flex gap-4 max-w-[90%]">
+<div class="w-8 h-8 shrink-0 rounded-full bg-surface-container flex items-center justify-center border border-border-subtle">
+<span class="material-symbols-outlined text-sm text-primary" data-icon="robot_2">robot_2</span>
+</div>
+<div class="space-y-3">
+<div class="bg-background text-on-surface px-5 py-4 rounded-2xl rounded-tl-sm border-l-2 border-secondary shadow-sm relative">
+<p class="font-body-md text-body-md mb-3 leading-relaxed">
+                                    Based on the latest scheme information document, the exit load for the <span class="fact-highlight">HDFC Mid-Cap Opportunities Fund</span> is structured as follows:
+                                </p>
+<div class="bg-surface-container/50 rounded-lg p-4 border border-border-subtle/50 mb-3 space-y-2">
+<div class="flex justify-between items-center py-1 border-b border-border-subtle/30">
+<span class="font-body-sm text-body-sm text-text-muted">Redemption within 1 Year (Up to 12% of units)</span>
+<span class="font-label-mono text-label-mono text-on-surface">Nil</span>
+</div>
+<div class="flex justify-between items-center py-1 border-b border-border-subtle/30">
+<span class="font-body-sm text-body-sm text-text-muted">Redemption within 1 Year (Beyond 12% of units)</span>
+<span class="font-label-mono text-label-mono text-primary font-bold">1.00%</span>
+</div>
+<div class="flex justify-between items-center py-1">
+<span class="font-body-sm text-body-sm text-text-muted">Redemption after 1 Year</span>
+<span class="font-label-mono text-label-mono text-on-surface">Nil</span>
+</div>
+</div>
+<div class="flex items-center gap-3 mt-4 pt-3 border-t border-border-subtle/50">
+<span class="inline-flex items-center gap-1 text-xs font-label-mono text-secondary bg-secondary/10 px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[14px]" data-icon="verified">verified</span> Verified Fact
+                                    </span>
+<a class="text-xs font-body-sm text-text-muted hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[12px]" data-icon="link">link</span> groww.in/mutual-funds
+                                    </a>
+<span class="text-xs font-label-mono text-text-muted ml-auto">Data as of: 2026-08-23</span>
+</div>
+</div>
+<!-- Guardrail Warning -->
+<div class="flex items-start gap-2 px-2 text-warning-amber/80">
+<span class="material-symbols-outlined text-sm shrink-0 mt-0.5" data-icon="info">info</span>
+<p class="text-xs font-body-sm leading-tight">This information is retrieved directly from scheme documents. It does not constitute financial advice. Consult an advisor before investing.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Docked Input Area -->
+<div class="p-6 bg-gradient-to-t from-background via-background to-transparent pb-8">
+<div class="max-w-3xl mx-auto relative group">
+<!-- Glow effect container -->
+<div class="absolute -inset-1 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur opacity-20 group-focus-within:opacity-40 transition duration-500"></div>
+<div class="relative flex items-end gap-2 bg-surface-slate/80 backdrop-blur-xl border border-border-subtle rounded-2xl p-2 transition-all duration-300 focus-within:border-primary focus-within:shadow-[0_0_15px_rgba(68,237,183,0.1)]">
+<button class="p-2 text-text-muted hover:text-on-surface transition-colors rounded-lg mb-1" title="Attach Document">
+<span class="material-symbols-outlined" data-icon="attach_file">attach_file</span>
+</button>
+<textarea class="flex-1 bg-transparent border-none text-on-surface font-body-md text-body-md placeholder-text-muted/60 focus:ring-0 resize-none max-h-32 min-h-[44px] py-3 custom-scrollbar" placeholder="Ask any factual question about schemes, NAV, or regulations..." rows="1"></textarea>
+<button class="p-3 bg-primary text-on-primary rounded-xl hover:bg-primary-fixed transition-colors flex items-center justify-center shadow-[0_0_15px_rgba(68,237,183,0.2)] mb-1">
+<span class="material-symbols-outlined text-xl" data-icon="send" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+<div class="text-center mt-2">
+<span class="text-[10px] font-label-mono text-text-muted uppercase tracking-widest">RAG Engine Active • Institutional Grade Data</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Right Sidebar: Live Factsheet Matrix -->
+<aside class="hidden xl:flex flex-col w-80 h-[calc(100vh-64px)] fixed right-0 top-16 z-40 bg-surface-container-low/60 dark:bg-surface-container-low/60 backdrop-blur-md border-l border-outline-variant/30 transition-all duration-300">
+<div class="p-6 pb-4 border-b border-border-subtle/50 flex justify-between items-center">
+<div>
+<h2 class="text-headline-md font-headline-md text-secondary leading-tight">Live Factsheet</h2>
+<p class="text-body-sm font-body-sm text-text-muted">Institutional Grade Matrix</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-slate border border-border-subtle flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-icon="table_chart">table_chart</span>
+</div>
+</div>
+<!-- Mini Nav for Right Sidebar -->
+<div class="flex border-b border-border-subtle/30">
+<button class="flex-1 py-3 text-secondary border-b-2 border-secondary bg-secondary-container/10 font-body-sm text-body-sm text-center flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]" data-icon="grid_view">grid_view</span> Matrix
+                </button>
+<button class="flex-1 py-3 text-on-surface-variant hover:bg-surface-container-high/40 font-body-sm text-body-sm text-center transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]" data-icon="layers">layers</span> Compare
+                </button>
+</div>
+<div class="flex-1 overflow-y-auto p-4 custom-scrollbar">
+<h3 class="font-label-mono text-label-mono text-text-muted uppercase tracking-wider mb-3 px-1 flex items-center justify-between">
+                    Key Metrics Comparison
+                    <button class="text-secondary hover:text-secondary-fixed transition-colors"><span class="material-symbols-outlined text-[16px]" data-icon="filter_list">filter_list</span></button>
+</h3>
+<!-- Data Dense Table Structure -->
+<div class="bg-surface-slate/30 border border-border-subtle rounded-lg overflow-hidden">
+<!-- Expense Ratio Module -->
+<div class="p-3 border-b border-border-subtle bg-surface-container/40">
+<h4 class="font-body-sm text-body-sm text-on-surface flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-[16px] text-text-muted" data-icon="percent">percent</span> Expense Ratio (Direct)
+                        </h4>
+<div class="space-y-1">
+<div class="flex justify-between items-center text-sm p-1 rounded hover:bg-surface-container">
+<span class="font-body-sm text-text-muted truncate w-40" title="HDFC Nifty 50 Index">HDFC Nifty 50 Index</span>
+<span class="font-label-mono text-primary">0.20%</span>
+</div>
+<div class="flex justify-between items-center text-sm p-1 rounded bg-surface-container/50">
+<span class="font-body-sm text-text-muted truncate w-40" title="HDFC Nifty Next 50">HDFC Nifty Next 50</span>
+<span class="font-label-mono text-primary">0.29%</span>
+</div>
+<div class="flex justify-between items-center text-sm p-1 rounded hover:bg-surface-container">
+<span class="font-body-sm text-text-muted truncate w-40" title="HDFC Small Cap">HDFC Small Cap</span>
+<span class="font-label-mono text-warning-amber">0.74%</span>
+</div>
+<div class="flex justify-between items-center text-sm p-1 rounded bg-surface-container/50">
+<span class="font-body-sm text-text-muted truncate w-40" title="HDFC Mid-Cap Opp">HDFC Mid-Cap Opp</span>
+<span class="font-label-mono text-warning-amber">0.83%</span>
+</div>
+<div class="flex justify-between items-center text-sm p-1 rounded hover:bg-surface-container">
+<span class="font-body-sm text-text-muted truncate w-40" title="HDFC Multi Cap">HDFC Multi Cap</span>
+<span class="font-label-mono text-error">0.93%</span>
+</div>
+</div>
+</div>
+<!-- Riskometer Module -->
+<div class="p-3">
+<h4 class="font-body-sm text-body-sm text-on-surface flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-[16px] text-text-muted" data-icon="speed">speed</span> Riskometer Profile
+                        </h4>
+<div class="space-y-3">
+<div>
+<div class="flex justify-between items-end mb-1">
+<span class="text-xs font-body-sm text-text-muted">Index Funds</span>
+<span class="text-xs font-label-mono text-error font-medium">Very High</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5">
+<div class="bg-error h-1.5 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-end mb-1">
+<span class="text-xs font-body-sm text-text-muted">Mid/Small Cap</span>
+<span class="text-xs font-label-mono text-error font-medium">Very High</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5">
+<div class="bg-error h-1.5 rounded-full" style="width: 95%"></div>
+</div>
+</div>
+</div>
+<p class="text-[10px] text-text-muted mt-3 italic leading-tight">Risk profile is determined based on portfolio holding as per SEBI guidelines.</p>
+</div>
+</div>
+</div>
+</aside>
+</div>
+<!-- Script for simple textarea auto-resize -->
+<script>
+        const textarea = document.querySelector('textarea');
+        if(textarea) {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        }
+    </script>
+</body></html>

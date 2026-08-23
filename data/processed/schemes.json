@@ -1,0 +1,122 @@
+[
+  {
+    "id": "hdfc-mid-cap-fund",
+    "name": "HDFC Mid-Cap Opportunities Fund",
+    "official_scheme_name": "HDFC Mid Cap Fund Direct Growth",
+    "category": "Mid Cap Fund",
+    "url": "https://groww.in/mutual-funds/hdfc-mid-cap-fund-direct-growth",
+    "last_updated": "2026-08-23",
+    "attributes": {
+      "expense_ratio": "0.75% (inclusive of GST)",
+      "exit_load": "Exit load of 1% if redeemed within 1 year.",
+      "min_sip_amount": "₹100",
+      "min_lumpsum_amount": "₹100",
+      "fund_size_aum": "₹105,142.69 Cr",
+      "current_nav": "₹236.59",
+      "riskometer": "Very High Risk",
+      "benchmark_index": "NIFTY Midcap 150 Total Return Index",
+      "lock_in_period": "No lock-in period",
+      "fund_manager": "Chirag Setalvad",
+      "stamp_duty": "0.005% (from July 1st, 2020)",
+      "taxation_rules": "Returns are taxed at 20% for holding periods under 1 year (STCG). For holding periods over 1 year, gains exceeding ₹1.25 Lakh per financial year are taxed at 12.5% (LTCG).",
+      "amc_name": "HDFC Mutual Fund (HDFC Asset Management Company Limited)",
+      "plan_type": "Direct Plan - Growth Option"
+    }
+  },
+  {
+    "id": "hdfc-small-cap-fund",
+    "name": "HDFC Small Cap Fund",
+    "official_scheme_name": "HDFC Small Cap Fund Direct Growth",
+    "category": "Small Cap Fund",
+    "url": "https://groww.in/mutual-funds/hdfc-small-cap-fund-direct-growth",
+    "last_updated": "2026-08-23",
+    "attributes": {
+      "expense_ratio": "0.75% (inclusive of GST)",
+      "exit_load": "Exit load of 1% if redeemed within 1 year",
+      "min_sip_amount": "₹100",
+      "min_lumpsum_amount": "₹100",
+      "fund_size_aum": "₹41,679.00 Cr",
+      "current_nav": "₹161.46",
+      "riskometer": "Very High Risk",
+      "benchmark_index": "BSE 250 SmallCap Total Return Index",
+      "lock_in_period": "No lock-in period",
+      "fund_manager": "Chirag Setalvad",
+      "stamp_duty": "0.005% (from July 1st, 2020)",
+      "taxation_rules": "Returns are taxed at 20% for holding periods under 1 year (STCG). For holding periods over 1 year, gains exceeding ₹1.25 Lakh per financial year are taxed at 12.5% (LTCG).",
+      "amc_name": "HDFC Mutual Fund (HDFC Asset Management Company Limited)",
+      "plan_type": "Direct Plan - Growth Option"
+    }
+  },
+  {
+    "id": "hdfc-nifty-50-index-fund",
+    "name": "HDFC Nifty 50 Index Fund",
+    "official_scheme_name": "HDFC NIFTY 50 Index Fund Direct Growth",
+    "category": "Index Fund (Large Cap)",
+    "url": "https://groww.in/mutual-funds/hdfc-nifty-50-index-fund-direct-growth",
+    "last_updated": "2026-08-23",
+    "attributes": {
+      "expense_ratio": "0.29% (inclusive of GST)",
+      "exit_load": "Exit load of 0.25% if redeemed within 3 days",
+      "min_sip_amount": "₹100",
+      "min_lumpsum_amount": "₹100",
+      "fund_size_aum": "₹24,189.60 Cr",
+      "current_nav": "₹237.37",
+      "riskometer": "Very High Risk",
+      "benchmark_index": "NIFTY 50 Total Return Index",
+      "lock_in_period": "No lock-in period",
+      "fund_manager": "Krishan Daga",
+      "stamp_duty": "0.005% (from July 1st, 2020)",
+      "taxation_rules": "Returns are taxed at 20% for holding periods under 1 year (STCG). For holding periods over 1 year, gains exceeding ₹1.25 Lakh per financial year are taxed at 12.5% (LTCG).",
+      "amc_name": "HDFC Mutual Fund (HDFC Asset Management Company Limited)",
+      "plan_type": "Direct Plan - Growth Option"
+    }
+  },
+  {
+    "id": "hdfc-nifty-next-50-index-fund",
+    "name": "HDFC Nifty Next 50 Index Fund",
+    "official_scheme_name": "HDFC NIFTY Next 50 Index Fund Direct Growth",
+    "category": "Index Fund (Next 50)",
+    "url": "https://groww.in/mutual-funds/hdfc-nifty-next-50-index-fund-direct-growth",
+    "last_updated": "2026-08-23",
+    "attributes": {
+      "expense_ratio": "0.36% (inclusive of GST)",
+      "exit_load": "Nil",
+      "min_sip_amount": "₹100",
+      "min_lumpsum_amount": "₹100",
+      "fund_size_aum": "₹2,659.43 Cr",
+      "current_nav": "₹17.52",
+      "riskometer": "Very High Risk",
+      "benchmark_index": "NIFTY Next 50 Total Return Index",
+      "lock_in_period": "No lock-in period",
+      "fund_manager": "Krishan Kumar Daga",
+      "stamp_duty": "0.005% (from July 1st, 2020)",
+      "taxation_rules": "Returns are taxed at 20% for holding periods under 1 year (STCG). For holding periods over 1 year, gains exceeding ₹1.25 Lakh per financial year are taxed at 12.5% (LTCG).",
+      "amc_name": "HDFC Mutual Fund (HDFC Asset Management Company Limited)",
+      "plan_type": "Direct Plan - Growth Option"
+    }
+  },
+  {
+    "id": "hdfc-multi-cap-fund",
+    "name": "HDFC Multi Cap Fund",
+    "official_scheme_name": "HDFC Multi Cap Fund Direct Growth",
+    "category": "Multi Cap Fund",
+    "url": "https://groww.in/mutual-funds/hdfc-multi-cap-fund-direct-growth",
+    "last_updated": "2026-08-23",
+    "attributes": {
+      "expense_ratio": "0.93% (inclusive of GST)",
+      "exit_load": "Exit load of 1% if redeemed within 1 year.",
+      "min_sip_amount": "₹100",
+      "min_lumpsum_amount": "₹100",
+      "fund_size_aum": "₹20,582.74 Cr",
+      "current_nav": "₹20.12",
+      "riskometer": "Very High Risk",
+      "benchmark_index": "Nifty 500 Multicap 50:25:25 Total Return Index",
+      "lock_in_period": "No lock-in period",
+      "fund_manager": "Gopal Agrawal",
+      "stamp_duty": "0.005% (from July 1st, 2020)",
+      "taxation_rules": "Returns are taxed at 20% for holding periods under 1 year (STCG). For holding periods over 1 year, gains exceeding ₹1.25 Lakh per financial year are taxed at 12.5% (LTCG).",
+      "amc_name": "HDFC Mutual Fund (HDFC Asset Management Company Limited)",
+      "plan_type": "Direct Plan - Growth Option"
+    }
+  }
+]

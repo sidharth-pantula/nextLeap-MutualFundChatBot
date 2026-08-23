@@ -1,0 +1,32 @@
+[
+  {
+    "timestamp": "2026-08-24 00:33:27",
+    "date": "2026-08-24",
+    "status": "VALIDATION_FAILED",
+    "duration_ms": 9033.87,
+    "error": "Missing required schemes in scraped payload: {'hdfc-nifty-next-50-index-fund', 'hdfc-mid-cap-fund', 'hdfc-nifty-50-index-fund', 'hdfc-small-cap-fund', 'hdfc-multi-cap-fund'}",
+    "schemes_updated": 0,
+    "changes_detected": false,
+    "diff_report": []
+  },
+  {
+    "timestamp": "2026-08-24 00:34:24",
+    "date": "2026-08-24",
+    "status": "NO_CHANGES_DETECTED",
+    "duration_ms": 7405.59,
+    "schemes_updated": 0,
+    "changes_detected": false,
+    "diff_report": [],
+    "message": "All 5 schemes are up-to-date with current Groww values."
+  },
+  {
+    "timestamp": "2026-08-24 00:35:35",
+    "date": "2026-08-24",
+    "status": "NO_CHANGES_DETECTED",
+    "duration_ms": 10219.63,
+    "schemes_updated": 0,
+    "changes_detected": false,
+    "diff_report": [],
+    "message": "All 5 schemes are up-to-date with current Groww values."
+  }
+]

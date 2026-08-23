@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Groww Mutual Fund FAQ Assistant | Facts-Only Intelligence</title>
+  <meta name="description" content="Compliance-first, facts-only FAQ assistant for 5 HDFC Mutual Fund schemes on Groww powered by BGE Retrieval and Groq LLM.">
+  
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app-layout" id="appLayout">
+    
+    <!-- ====================================================================
+         TOP HEADER & GLOBAL COMPLIANCE BANNER
+         ==================================================================== -->
+    <header class="top-header" id="topHeader">
+      <div class="header-left">
+        <div class="brand-logo-container">
+          <div class="brand-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="10" fill="#00D09C" fill-opacity="0.2"/>
+              <path d="M7 13.5L10.5 17L17 7.5" stroke="#00D09C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <h1 class="brand-title">Groww FAQ Assistant</h1>
+            <span class="brand-subtitle">5 HDFC Mutual Fund Schemes</span>
+          </div>
+        </div>
+
+        <div class="model-badge-group">
+          <span class="status-pill status-live" title="BGE Dense Retriever Active">
+            <span class="pulsing-dot"></span> BGE-v1.5
+          </span>
+          <span class="status-pill status-groq" title="Groq Cloud Llama-3.3 Engine">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            Groq Llama 3.3
+          </span>
+        </div>
+      </div>
+
+      <!-- Compliance Disclaimer Banner -->
+      <div class="compliance-banner" id="complianceBanner">
+        <div class="shield-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span class="compliance-text"><strong>Facts-Only. No Investment Advice.</strong> Responses are strictly grounded in official Groww scheme factsheets.</span>
+      </div>
+
+      <div class="header-right">
+        <button class="btn-theme-toggle" id="themeToggleBtn" title="Toggle Theme" aria-label="Toggle Theme">
+          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <a href="/docs" target="_blank" class="btn-api-docs" id="apiDocsLink">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          API
+        </a>
+      </div>
+    </header>
+
+    <!-- ====================================================================
+         3-COLUMN DESKTOP WORKSPACE
+         ==================================================================== -->
+    <main class="main-workspace" id="mainWorkspace">
+      
+      <!-- COLUMN 1: LEFT SCHEME DIRECTORY -->
+      <aside class="sidebar-schemes" id="sidebarSchemes">
+        <div class="sidebar-header">
+          <div class="sidebar-title-row">
+            <span class="sidebar-title">Covered Schemes</span>
+            <span class="badge-count" id="schemeCountBadge">5</span>
+          </div>
+          <p class="sidebar-caption">Official Groww Data Sources</p>
+        </div>
+
+        <div class="scheme-list" id="schemeList">
+          <!-- Dynamic scheme cards injected via app.js -->
+          <div class="scheme-loading-skeleton">Loading schemes...</div>
+        </div>
+
+        <!-- Educational / Regulatory Disclaimer Links -->
+        <div class="regulatory-card" id="regulatoryCard">
+          <span class="reg-label">Investor Education</span>
+          <p class="reg-desc">For general guidelines & regulations:</p>
+          <div class="reg-links">
+            <a href="https://investor.sebi.gov.in/" target="_blank" rel="noopener noreferrer" class="reg-link">
+              <span>SEBI Investor Portal</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+            <a href="https://www.amfiindia.com/investor-corner/knowledge-center/what-are-mutual-funds.html" target="_blank" rel="noopener noreferrer" class="reg-link">
+              <span>AMFI Knowledge Base</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- COLUMN 2: CENTER CHAT & WORKSPACE -->
+      <section class="chat-workspace" id="chatWorkspace">
+        
+        <!-- Messages Feed Container -->
+        <div class="chat-feed" id="chatFeed">
+          
+          <!-- Hero Welcome Section (shown on empty chat) -->
+          <div class="hero-welcome-card" id="heroWelcomeCard">
+            <div class="hero-icon-badge">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#00D09C" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+            </div>
+            <h2 class="hero-title">Objective Financial Intelligence</h2>
+            <p class="hero-subtitle">Ask verified factual questions regarding expense ratios, exit loads, NAV, minimum SIPs, taxation, and statement download processes across the 5 HDFC schemes.</p>
+            
+            <div class="chips-section">
+              <span class="chips-label">Popular Factual Queries:</span>
+              <div class="chips-grid" id="chipsGrid">
+                <button class="query-chip" data-query="What is the expense ratio of HDFC Small Cap Fund?">
+                  <span class="chip-dot"></span> What is the expense ratio of HDFC Small Cap?
+                </button>
+                <button class="query-chip" data-query="What is the exit load for HDFC Mid-Cap Opportunities Fund?">
+                  <span class="chip-dot"></span> Exit load for HDFC Mid-Cap Fund?
+                </button>
+                <button class="query-chip" data-query="What is the benchmark index of HDFC Multi Cap Fund?">
+                  <span class="chip-dot"></span> Benchmark index of HDFC Multi Cap?
+                </button>
+                <button class="query-chip" data-query="What is the current NAV of HDFC Nifty Next 50 Index Fund?">
+                  <span class="chip-dot"></span> Current NAV of HDFC Nifty Next 50?
+                </button>
+                <button class="query-chip" data-query="How can I download my capital gains statement on Groww?">
+                  <span class="chip-dot"></span> How to download capital gains statement?
+                </button>
+                <button class="query-chip" data-query="What are the STCG and LTCG taxation rules for equity funds?">
+                  <span class="chip-dot"></span> STCG & LTCG taxation rules?
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chat messages stream here -->
+          <div class="message-thread" id="messageThread"></div>
+
+          <!-- Typing Indicator -->
+          <div class="typing-indicator-container" id="typingIndicator" style="display: none;">
+            <div class="assistant-avatar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#00D09C"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="typing-bubble">
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Docked Bottom Input Area -->
+        <div class="chat-input-wrapper" id="chatInputWrapper">
+          <form class="chat-input-form" id="chatForm">
+            <div class="input-container">
+              <input 
+                type="text" 
+                id="queryInput" 
+                class="query-input" 
+                placeholder="Ask about expense ratios, exit loads, NAV, minimum SIP, or statement download..." 
+                autocomplete="off"
+                required
+              />
+              <div class="input-actions">
+                <button type="button" class="btn-clear-chat" id="clearChatBtn" title="Clear Chat Feed">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                </button>
+                <button type="submit" class="btn-send" id="sendBtn" title="Send Question (Enter)">
+                  <span>Send</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="input-footer-reassurance">
+              <span class="reassurance-item">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Zero PII Collection: Do not enter PAN, Aadhaar, or folio numbers
+              </span>
+              <span class="reassurance-item">Deterministic Facts-Only</span>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- COLUMN 3: RIGHT FACTSHEET MATRIX & GUIDES -->
+      <aside class="sidebar-factsheet" id="sidebarFactsheet">
+        <div class="factsheet-header">
+          <span class="factsheet-title">Factsheet Matrix</span>
+          <span class="badge-tag">Direct Plans</span>
+        </div>
+
+        <div class="matrix-table-container">
+          <table class="fact-table" id="factTable">
+            <thead>
+              <tr>
+                <th>Scheme</th>
+                <th>Expense</th>
+                <th>Exit Load</th>
+                <th>Min SIP</th>
+              </tr>
+            </thead>
+            <tbody id="factTableBody">
+              <tr>
+                <td><strong>HDFC Mid-Cap</strong></td>
+                <td><span class="table-pill">0.75%</span></td>
+                <td>1% (1y)</td>
+                <td>₹100</td>
+              </tr>
+              <tr>
+                <td><strong>HDFC Small Cap</strong></td>
+                <td><span class="table-pill">0.75%</span></td>
+                <td>1% (1y)</td>
+                <td>₹100</td>
+              </tr>
+              <tr>
+                <td><strong>HDFC Nifty 50</strong></td>
+                <td><span class="table-pill green">0.29%</span></td>
+                <td>0.25% (3d)</td>
+                <td>₹100</td>
+              </tr>
+              <tr>
+                <td><strong>HDFC Next 50</strong></td>
+                <td><span class="table-pill green">0.36%</span></td>
+                <td>Nil</td>
+                <td>₹100</td>
+              </tr>
+              <tr>
+                <td><strong>HDFC Multi Cap</strong></td>
+                <td><span class="table-pill">0.93%</span></td>
+                <td>1% (1y)</td>
+                <td>₹100</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Universal Policy Snapshot -->
+        <div class="policy-snapshot-card">
+          <span class="policy-title">Taxation & Stamp Duty</span>
+          <div class="policy-item">
+            <span class="policy-label">STCG (&le; 1 Year):</span>
+            <span class="policy-val">20%</span>
+          </div>
+          <div class="policy-item">
+            <span class="policy-label">LTCG (&gt; 1 Year):</span>
+            <span class="policy-val">12.5% (&gt; ₹1.25L)</span>
+          </div>
+          <div class="policy-item">
+            <span class="policy-label">Stamp Duty:</span>
+            <span class="policy-val">0.005%</span>
+          </div>
+        </div>
+
+        <!-- Operational Process Accordion -->
+        <div class="process-guide-card">
+          <span class="guide-header">Operational Help</span>
+          <details class="guide-accordion">
+            <summary>How to Download Groww Statement?</summary>
+            <p>Go to Groww Profile &rarr; <strong>Reports</strong> &rarr; Select <strong>Mutual Fund Capital Gains / P&amp;L</strong> or Holding Statement &rarr; Download PDF.</p>
+          </details>
+          <details class="guide-accordion">
+            <summary>How to get HDFC Direct SOA?</summary>
+            <p>Visit <strong>hdfcfund.com</strong> &rarr; Investor Desk &rarr; Enter Folio/PAN &rarr; Receive CAS via email.</p>
+          </details>
+        </div>
+      </aside>
+
+    </main>
+  </div>
+
+  <!-- App Logic -->
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+# HDFC Multi Cap Fund
+
+- **Official Scheme Name:** HDFC Multi Cap Fund Direct Growth
+- **Fund Category:** Multi Cap Fund
+- **Groww URL:** [https://groww.in/mutual-funds/hdfc-multi-cap-fund-direct-growth](https://groww.in/mutual-funds/hdfc-multi-cap-fund-direct-growth)
+- **Scraped Date:** 2026-08-23
+
+## Key Statistics & Facts
+
+| Attribute | Extracted Value |
+| :--- | :--- |
+| **Expense Ratio** | 0.93% (inclusive of GST) |
+| **Exit Load** | Exit load of 1% if redeemed within 1 year. |
+| **Minimum SIP** | ₹100 |
+| **Minimum Lumpsum** | ₹100 |
+| **Fund Size (AUM)** | ₹20,582.74 Cr |
+| **Current NAV** | ₹20.12 |
+| **Benchmark Index** | Nifty 500 Multicap 50:25:25 Total Return Index |
+| **Riskometer** | Very High Risk |
+| **Fund Manager** | Gopal Agrawal |
+| **Lock-in Period** | No lock-in period |
+| **Stamp Duty** | 0.005% (from July 1st, 2020) |
+| **Plan & Option** | Direct Plan - Growth Option |
+| **AMC Name** | HDFC Mutual Fund (HDFC Asset Management Company Limited) |
+
+## Taxation Policy
+> Returns are taxed at 20% for holding periods under 1 year (STCG). For holding periods over 1 year, gains exceeding ₹1.25 Lakh per financial year are taxed at 12.5% (LTCG).
+
+## Account Statements & Capital Gains Reports Download Guide
+- **Via Groww:** Navigate to `Profile` -> `Reports` -> `Mutual Fund P&L / Capital Gains Statement`.
+- **Via HDFC AMC Investor Portal:** Visit the HDFC Mutual Fund online investor desk and generate your Statement of Account (SOA) by entering your Folio Number and PAN.
+
+---
+*Source: https://groww.in/mutual-funds/hdfc-multi-cap-fund-direct-growth | Last updated: 2026-08-23*
