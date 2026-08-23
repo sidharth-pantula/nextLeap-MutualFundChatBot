@@ -9,10 +9,9 @@ on:
   workflow_dispatch:
     inputs:
       force:
-        description: 'Force full re-scrape and vector re-indexing even if no attribute diffs are detected'
+        description: 'Force full re-scrape and vector re-indexing (true/false)'
         required: false
-        type: boolean
-        default: false
+        default: 'false'
 
 jobs:
   refresh-and-verify:
